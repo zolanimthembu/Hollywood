@@ -10,27 +10,37 @@ import { AuthService } from 'src/app/auth.service';
 })
 export class SigninComponent implements OnInit {
   
-
-  constructor(private service: ApiserviceService, private router: Router, private authService: AuthService) { }
+  
+  constructor(private service: ApiserviceService, private router: Router, private authService: AuthService ) { }
+  
   @Input() login: any;
-  Email: string = '';
-  Password: string = '';
+  Email = "";
+  Password = "";
+  
   ngOnInit(): void {
-    
     this.Email = this.Email;
     this.Password = this.Password;
+    localStorage.removeItem('userData');
+    localStorage.removeItem('event');
+    localStorage.clear();
+
   }
     signin(){
+      
       var login = {
         email: this.Email,
         password: this.Password
       };
       this.service.Signin(login).subscribe(response => {
         if (response.emailAddress !='') {
+          //set is logged on
           //current user data
-          this.authService.setUser(response);
+          this.authService.name = response.name;
+          this.authService.login();
+          localStorage.setItem('userData',JSON.stringify(response));
           // Redirect to the home component
-          this.router.navigate(['/register']);
+          this.router.navigate(['/layout/tournament']);
+          
         } else {
           alert("User not found");
         }

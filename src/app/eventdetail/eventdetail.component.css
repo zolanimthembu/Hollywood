@@ -1,0 +1,14 @@
+table {
+    margin-top: 1%;
+    justify-content: center;
+}
+.bt{
+    margin-top: 2%;
+    position: relative;
+    justify-self: right;
+}
+h3{
+    margin-top: 2%;
+    position: relative;
+    justify-content: center;
+}

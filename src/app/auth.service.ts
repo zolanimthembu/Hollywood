@@ -1,17 +1,25 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUser: any;
-
-  setUser(currentUser: any) {
-    this.currentUser = currentUser;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public name = '';
+  // Simulate login
+  login(): void {
+    this.isAuthenticatedSubject.next(true);
   }
 
-  getUser(): any {
-    return this.currentUser;
+  // Simulate logout
+  logout(): void {
+    this.isAuthenticatedSubject.next(false);
   }
-  constructor() { }
+
+  // Check authentication status
+  isAuthenticated(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable();
+  }
 }
+  

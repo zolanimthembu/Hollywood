@@ -1,0 +1,146 @@
+
+<h3>{{displayEventName}}</h3>
+<div class="justify-content-md-end">
+    <button class="btn btn-primary bt" *ngIf="user.role === 'Admin'" data-bs-toggle="modal" data-bs-target="#exampleModal">Add event details</button>
+</div>
+<div class="table-responsive">
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Details Names</th>
+            <th>Status</th>
+            <th>Odds</th>
+            <th>Details number</th>
+            <th>Finishing Position</th>
+            <th>First Timer</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let eventDetail of eventDetails index as i">
+            <td>{{i+1}}</td>
+            <td>{{eventDetail.eventDetailName}}</td>
+            <td>{{eventDetail.eventDetailStatusName}}</td>
+            <td>{{eventDetail.eventDetailOdd}}</td>
+            <td>{{eventDetail.eventDetailNumber}}</td>
+            <td>{{eventDetail.finishingPosition}}</td>
+            <td>{{eventDetail.firstTimer}}</td>
+            <td>
+              <button class="btn btn-primary" data-bs-toggle="modal" *ngIf="user.role === 'Admin'" data-bs-target="#exampleModal2" (click)="editEventDetail(eventDetail)">
+              Edit
+            </button>
+          </td>
+            <td>
+              <button class="btn btn-danger" *ngIf="user.role === 'Admin'" (click)="deleteDetail(eventDetail)">
+                Delete
+            </button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add event details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Status</label>
+                <select class="form-control" [(ngModel)]="EventDetailStatusID">                    
+                    <option  [ngValue]="0">Select status</option>
+                    <option *ngFor="let status of eventStatus"  [ngValue]="status.eventDetailStatusID">
+                        {{status.eventDetailStatusName}}
+                    </option>
+                </select>
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Details name</label>
+              <input class="form-control" type="text" [(ngModel)]="EventDetailName" placeholder="Event name" >
+            </div>
+            <br/>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Details number</label>
+                <input class="form-control" type="number" [(ngModel)]="EventDetailNumber" placeholder="Event name" >
+              </div>
+              <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Details odds</label>
+            <input class="form-control" type="number" [(ngModel)]="EventDetailOdd" placeholder="Event number" >
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Finishing position</label>
+            <input class="form-control" type="number" [(ngModel)]="FinishingPosition" placeholder="Event date" >
+            </div>
+            <br/>
+            <div class="form-check">
+              <input class="form-check-input cbox" type="checkbox" value="" [(ngModel)]="FirstTimer" id="flexCheckDefault"> 
+              <label class="form-check-label" for="exampleCheck1">First timer</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="addEventDetails()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update event details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Status</label>
+                <select class="form-control" [(ngModel)]="EventDetailStatusID">                    
+                    <option  [ngValue]="0">Select status</option>
+                    <option *ngFor="let status of eventStatus"  [ngValue]="status.eventDetailStatusID">
+                        {{status.eventDetailStatusName}}
+                    </option>
+                </select>
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Details name</label>
+              <input class="form-control" type="text" [(ngModel)]="EventDetailName" placeholder="Event name" >
+            </div>
+            <br/>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Details number</label>
+                <input class="form-control" type="number" [(ngModel)]="EventDetailNumber" placeholder="Event name" >
+              </div>
+              <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Details odds</label>
+            <input class="form-control" type="number" [(ngModel)]="EventDetailOdd" placeholder="Event number" >
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Finishing position</label>
+            <input class="form-control" type="number" [(ngModel)]="FinishingPosition" placeholder="Event date" >
+            </div>
+            <br/>
+            <div class="form-check">
+              <input class="form-check-input cbox" type="checkbox" value="" [(ngModel)]="FirstTimer" id="flexCheckDefault"> 
+              <label class="form-check-label" for="exampleCheck1">First timer</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="updateEventDetail()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

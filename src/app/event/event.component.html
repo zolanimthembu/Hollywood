@@ -1,0 +1,145 @@
+
+<div class="row">
+<div class="d-grid gap-2 d-md-flex justify-content-md-start col-sm-6">
+    <select class="form-select" [(ngModel)]="TournamentID"   (change)="getEvents()">
+        <option  [ngValue]="0">Select tournament</option>
+        <option *ngFor="let tournament of tournaments"  [ngValue]="tournament.tournamentId">
+            {{tournament.tournamentName}}
+        </option>
+      </select>
+</div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end col-sm-6">
+    <button class="btn btn-primary bt" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="user.role === 'Admin'">Add new event</button>
+</div>
+</div>
+<div class="table-responsive">
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Date</th>
+            <th>End Date</th>
+            <th>Auto Close</th>
+            <th>Edit</th>
+            <th>Details</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of events index as i" >
+            <td>{{i+1}}</td>
+            <td>{{event.eventName}}</td>
+            <td>{{event.eventNumber}}</td>
+            <td>{{event.eventDateTime}}</td>
+            <td>{{event.eventEndDateTime}}</td>
+            <td>{{event.autoClose}}</td>
+            <td>
+              <button *ngIf="user.role === 'Admin'" class="btn btn-primary" (click)="editEvent(event)"  data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              Edit
+            </button>
+          </td>
+          <td>
+            
+            <button class="btn btn-primary" (click)="eventDetails(event)">
+              Details
+          </button>
+        </td>
+            <td>
+              <button *ngIf="user.role === 'Admin'" class="btn btn-danger" (click)="deleteEvent(event)">
+                Delete
+            </button>
+          </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Event</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Event name</label>
+              <input class="form-control" type="text" [(ngModel)]="EventName" placeholder="Event name" >
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Event number</label>
+            <input class="form-control" type="number" [(ngModel)]="EventNumber" placeholder="Event number" >
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Event date</label>
+            <input class="form-control" type="datetime-local" [(ngModel)]="EventDateTime" placeholder="Event date" >
+            </div>
+            <br/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Event end date</label>
+            <input class="form-control" type="datetime-local" [(ngModel)]="EventEndDateTime" placeholder="Event end date" >
+            </div>
+            <br/>
+            <div class="form-check">
+              <input class="form-check-input cbox" type="checkbox" value="" [(ngModel)]="AutoClose" id="flexCheckDefault"> 
+              <label class="form-check-label" for="exampleCheck1">Auto Closes</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+          <button type="submit" (click)="addEvent()" class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Event</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Event name</label>
+            <input class="form-control" type="text" [(ngModel)]="EventNameUpdate" placeholder="Event name" >
+          </div>
+          <br/>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Event number</label>
+          <input class="form-control" type="number" [(ngModel)]="EventNumberUpdate" placeholder="Event number" >
+          </div>
+          <br/>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Event date</label>
+          <input class="form-control" type="datetime-local" [(ngModel)]="EventDateTimeUpdate" placeholder="Event date" >
+          </div>
+          <br/>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Event end date</label>
+          <input class="form-control" type="datetime-local" [(ngModel)]="EventEndDateTimeUpdate" placeholder="Event end date" >
+          </div>
+          <br/>
+          <div class="form-check">
+            <input class="form-check-input cbox" type="checkbox" value="" [(ngModel)]="AutoCloseUpdate" id="flexCheckDefault"> 
+            <label class="form-check-label" for="exampleCheck1">Auto Closes</label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+          <button type="submit" (click)="updateEvent()" *ngIf="TournamentID != 0" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

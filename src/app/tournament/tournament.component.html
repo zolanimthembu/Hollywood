@@ -1,0 +1,71 @@
+
+<button class="btn btn-primary bt" *ngIf="user.role === 'Admin'" data-bs-toggle="modal" data-bs-target="#exampleModal">Add new tournament</button>
+
+<div class="table-responsive">
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Tournament</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tournament of tournaments index as i">
+            <td>{{i+1}}</td>
+            <td>{{tournament.tournamentName}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editTournament(tournament)" *ngIf="user.role === 'Admin'" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              Edit
+            </button>
+          </td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteTournament(tournament)" *ngIf="user.role === 'Admin'">
+                Delete
+            </button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Tournament</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input class="form-control" type="TournamentName" [(ngModel)]="TournamentName" placeholder="Tournament name" >
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+          <button type="submit" (click)="addTournament()" class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Tournament</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input class="form-control" type="TournamentName" [(ngModel)]="TournamentNameUpate" placeholder="Tournament name" >
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+          <button type="submit" (click)="updateTournament()" *ngIf="TournamentID != 0" class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+
+
+
